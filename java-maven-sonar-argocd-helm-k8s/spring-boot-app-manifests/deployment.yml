@@ -13,9 +13,13 @@ spec:
     metadata:
       labels:
         app: spring-boot-app
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/actuator/prometheus"
+        prometheus.io/port: "8080"
     spec:
       containers:
-      - name: spring-boot-app
-        image: jatha1994/ultimate-cicd:17
-        ports:
-        - containerPort: 8080
+        - name: spring-boot-app
+          image: jatha1994/ultimate-cicd:17
+          ports:
+            - containerPort: 8080
