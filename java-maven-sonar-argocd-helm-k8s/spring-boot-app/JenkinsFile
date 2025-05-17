@@ -1,15 +1,10 @@
 pipeline {
-  agent {
-    docker {
-      image 'abhishekf5/maven-abhishek-docker-agent:v1'
-      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
-    }
-  }
+  agent any
   stages {
     stage('Checkout') {
       steps {
         sh 'echo passed'
-        //git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
+        git branch: 'main', url: 'https://github.com/jatharthan/Jenkins-e2e-cicd.git'
       }
     }
     stage('Build and Test') {
@@ -22,8 +17,8 @@ pipeline {
 	stage('Static Code Analysis') {
       environment {
         SONAR_URL = "http://3.93.64.107:9000"
-        JAVA_HOME = "/usr/lib/jvm/java-11-openjdk-amd64"
-        PATH = "${JAVA_HOME}/bin:${env.PATH}"
+        //JAVA_HOME = "/usr/lib/jvm/java-11-openjdk-amd64"
+        //PATH = "${JAVA_HOME}/bin:${env.PATH}"
       }
       steps {
         sh 'java -version && javac -version'
